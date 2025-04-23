@@ -33,6 +33,7 @@ const Calculator = () => {
         <button class="btn" onClick={handleClear}>C</button>
       </div>
 
+
     </div>
   );
 };
