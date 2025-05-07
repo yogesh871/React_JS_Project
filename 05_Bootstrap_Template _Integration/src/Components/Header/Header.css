@@ -2,6 +2,7 @@
     padding: 18px 0px;
 }
 
+
 #collapsible-nav-dropdown {
     font-size: 15px;
     font-weight: 600;
@@ -154,6 +155,10 @@ div .accordion-body {
     padding: 4px 32px 4px 0px !important;
 }
 
+.dropdown-item:hover {
+  color: #ff4135 !important;
+}
+
 .offcanvas-header .btn-close {
     filter: brightness(0) invert(1);
 }
@@ -165,6 +170,12 @@ div .accordion-body {
 
 
 
+    @media screen and (max-width : 1200px) {
+    
+.header>ul {
+    gap: 25px !important;
+  }
+    }
     @media screen and (max-width : 991px) {
     .header .navbar {
         display: none !important;
