@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaUser } from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaUser, FaCalendarAlt, FaIdBadge, FaBriefcase, FaBuilding } from "react-icons/fa";
 import './Employee.css';
 
 const EmployeeModal = ({ show, onHide, employee }) => {
@@ -11,15 +11,16 @@ const EmployeeModal = ({ show, onHide, employee }) => {
       onHide={onHide}
       centered
       className="employee-modal"
+      backdrop="static"
     >
       <div className="modal-card">
         <Modal.Header closeButton className="modal-header">
           <div className="employee-avatar">
-            <FaUser size={24} />
+            <FaUser size={32} />
           </div>
-          <div>
+          <div className="employee-title">
             <h3>{employee?.firstname} {employee?.lastname}</h3>
-            <p className="employee-position">Employee Details</p>
+            <p className="employee-position">{employee?.position || 'Employee'}</p>
           </div>
         </Modal.Header>
         <Modal.Body className="modal-body">
@@ -32,6 +33,14 @@ const EmployeeModal = ({ show, onHide, employee }) => {
           </div>
           
           <div className="detail-item">
+            <FaPhone className="detail-icon" />
+            <div>
+              <p className="detail-label">Phone</p>
+              <p className="detail-value">{employee?.phone}</p>
+            </div>
+          </div>
+          
+          <div className="detail-item">
             <FaMapMarkerAlt className="detail-icon" />
             <div>
               <p className="detail-label">Address</p>
@@ -39,13 +48,7 @@ const EmployeeModal = ({ show, onHide, employee }) => {
             </div>
           </div>
           
-          <div className="detail-item">
-            <FaPhone className="detail-icon" />
-            <div>
-              <p className="detail-label">Phone</p>
-              <p className="detail-value">{employee?.phone}</p>
-            </div>
-          </div>
+          
         </Modal.Body>
         <Modal.Footer className="modal-footer">
           <Button 
