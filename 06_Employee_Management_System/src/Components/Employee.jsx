@@ -146,7 +146,6 @@ const EmployeeManagement = () => {
         </div>
       </div>
 
-      {/* Table Section */}
       <div className="table-section">
         <div className="table-header">
           <h2 className="section-title">Employee Directory</h2>

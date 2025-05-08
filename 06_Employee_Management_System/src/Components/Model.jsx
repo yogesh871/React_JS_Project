@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaUser, FaCalendarAlt, FaIdBadge, FaBriefcase, FaBuilding } from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaUser } from "react-icons/fa";
 import './Employee.css';
 
 const EmployeeModal = ({ show, onHide, employee }) => {
