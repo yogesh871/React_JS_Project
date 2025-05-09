@@ -1,12 +1,12 @@
-import logo2 from "../../../public/palnt/logo-2.png"
+import logo2 from "../../assets/palnt/logo-2.png"
 import { IoLocationOutline } from "react-icons/io5";
 import { TbPhoneCall } from "react-icons/tb";
 import { MdOutlineMailOutline } from "react-icons/md";
-import Container from 'react-bootstrap/Container';
-import Card1 from '../../../public/palnt/card-1.png';
-import Card2 from '../../../public/palnt/card-2.png';
-import Card3 from '../../../public/palnt/card-3.png';
-import Card4 from '../../../public/palnt/card-4.png';
+import Container from 'react-bootstrap/Container'; 
+import Card1 from '../../assets/palnt/card-1.png';
+import Card2 from '../../assets/palnt/card-2.png';
+import Card3 from '../../assets//palnt/card-3.png';
+import Card4 from '../../assets/palnt/card-4.png';
 
 import { IoLogoGoogleplus } from "react-icons/io";
 import { FaVimeoV } from "react-icons/fa";

@@ -1,15 +1,15 @@
 import Single_blog from "./Single_blog";
 
 import  "./blogs.css";
-import card_1 from "../../../public/palnt/card_1.jpg";
-import card_2 from "../../../public/palnt/card_2.jpg";
-import card_3 from "../../../public/palnt/card_3.jpg";
-import card_4 from "../../../public/palnt/card_4.jpg";
-import card_5 from "../../../public/palnt/card_5.jpg";
-import card_6 from "../../../public/palnt/card_6.jpg";
-import card_7 from "../../../public/palnt/card_7.jpg";
-import card_8 from "../../../public/palnt/card_8.jpg";
-import card_9 from "../../../public/palnt/card_9.jpg";
+import card_1 from "../../assets/palnt/card_1.jpg";
+import card_2 from "../../assets/palnt/card_2.jpg";
+import card_3 from "../../assets/palnt/card_3.jpg";
+import card_4 from "../../assets/palnt/card_4.jpg";
+import card_5 from "../../assets/palnt/card_5.jpg";
+import card_6 from "../../assets/palnt/card_6.jpg";
+import card_7 from "../../assets/palnt/card_7.jpg";
+import card_8 from "../../assets/palnt/card_8.jpg";
+import card_9 from "../../assets/palnt/card_9.jpg";
 import Container from 'react-bootstrap/Container';
 
 const Multiple_Blog = () => {

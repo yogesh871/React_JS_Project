@@ -7,8 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import logo from "../../../public/palnt/logo.png"
-import logo2 from "../../../public/palnt/logo-2.png"
+import logo from "../../assets/palnt/logo.png"
+import logo2 from "../../assets/palnt/logo-2.png"
 
 import Accordion from 'react-bootstrap/Accordion';
 import { FaTwitter } from "react-icons/fa";
