@@ -8,7 +8,7 @@ const Title = () => {
     return ( 
         <>
         <div className="blog-title centred">
-            <div className="blog-layer" style={{backgroundImage:" url(../../../public/palnt/page-title.jpg)"}}>
+            <div className="blog-layer" >
                 <Container>
                     <div className="content-box">
                         <h1  style={{fontFamily : "Josefin Sans"}}>Blog Details 02</h1>

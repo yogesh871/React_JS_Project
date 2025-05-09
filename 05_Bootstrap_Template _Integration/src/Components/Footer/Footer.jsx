@@ -1,12 +1,12 @@
-import logo2 from "../../assets/palnt/logo-2.png"
+import logo2 from "../../assets/images/logo-2.png"
 import { IoLocationOutline } from "react-icons/io5";
-import { TbPhoneCall } from "react-icons/tb";
+import { IoMdCall } from "react-icons/io";
 import { MdOutlineMailOutline } from "react-icons/md";
 import Container from 'react-bootstrap/Container'; 
-import Card1 from '../../assets/palnt/card-1.png';
-import Card2 from '../../assets/palnt/card-2.png';
-import Card3 from '../../assets//palnt/card-3.png';
-import Card4 from '../../assets/palnt/card-4.png';
+import Card1 from '../../assets/images/card-1.png';
+import Card2 from '../../assets/images/card-2.png';
+import Card3 from '../../assets//images/card-3.png';
+import Card4 from '../../assets/images/card-4.png';
 
 import { IoLogoGoogleplus } from "react-icons/io";
 import { FaVimeoV } from "react-icons/fa";
@@ -49,7 +49,7 @@ const Footer  = () => {
                  <IoLocationOutline style={{fontSize : "40px" , color : "#848484"}} className="me-2 "/> 
                   <p > 4708 Ruecker Wall, <br/> Kassandratown, HI</p>
            </li>
-           <li><TbPhoneCall  style={{fontSize : "30px" , color : "#848484"}} className="me-2 "/><a href=""> +2(305) 587-3407</a></li>
+           <li><IoMdCall  style={{fontSize : "30px" , color : "#848484"}} className="me-2 "/><a href=""> +2(305) 587-3407</a></li>
             <li><MdOutlineMailOutline style={{fontSize : "30px" , color : "#848484"}} className="me-2 " /><a href="">info@example.com</a></li>
            
         </ul>

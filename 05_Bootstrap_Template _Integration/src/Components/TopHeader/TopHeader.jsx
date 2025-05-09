@@ -6,7 +6,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { TfiWorld } from "react-icons/tfi";
-import flag from "../../assets/palnt/icon-lang.png";
+import flag from "../../assets/images/icon-lang.png";
 import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { MdKeyboardArrowDown } from "react-icons/md";
