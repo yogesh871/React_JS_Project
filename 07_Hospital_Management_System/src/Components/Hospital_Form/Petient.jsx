@@ -56,7 +56,7 @@ const Petient = () => {
         </Container>
       </Navbar>
 
-      <div className="patient-section container mt-4">
+      <div className="patient-section container mt-5">
         <h2 className="section-title">Patient Records</h2>
         {petientDatas.length > 0 ? (
           <Table hover className="patient-table">
@@ -66,7 +66,7 @@ const Petient = () => {
                 <th>Age</th>
                 <th>Gender</th>
                 <th><FaPhone /> Contact</th>
-                <th>Date</th>
+                <th>Addmit_Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -120,7 +120,7 @@ const Petient = () => {
     {selectedPatient && (
       <div className="patient-profile-container">
         <div className="patient-basic-info card mb-4">
-          <div className="card-header bg-primary text-white">
+          <div className="card-header text-white">
             <h5 className="mb-0">
               <i className="fas fa-id-card me-2"></i>
               Basic Information
@@ -157,7 +157,7 @@ const Petient = () => {
         </div>
 
         <div className="patient-medical-info card mb-4">
-          <div className="card-header bg-info text-white">
+          <div className="card-header text-white">
             <h5 className="mb-0">
               <i className="fas fa-hospital me-2"></i>
               Medical Information
@@ -192,7 +192,7 @@ const Petient = () => {
     )}
   </Modal.Body>
   <Modal.Footer className="modal-footer">
-    <Button variant="outline-primary" onClick={handleClose}>
+    <Button variant="" onClick={handleClose}>
       <i className="fas fa-times me-2"></i>
       Close
     </Button>
