@@ -1,0 +1,322 @@
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+  }
+  .form {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 46, 97, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .form h3 {
+    color: #0a2a5a;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .form h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #0a2a5a, #3a7bd5);
+    border-radius: 3px;
+  }
+  
+  .input_details {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .input_details label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #0a2a5a;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .input_details input,
+  .input_details select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #0a2a5a;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+  }
+  
+  .input_details input:focus,
+  .input_details select:focus {
+    outline: none;
+    border-color: #3a7bd5;
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+    background-color: white;
+  }
+  
+  .input_details input:hover,
+  .input_details select:hover {
+    border-color: #3a7bd5;
+  }
+  
+  .input_details select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a2a5a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 1rem;
+    width: 100% !important;
+  }
+  
+  .petientbtn {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, #0a2a5a, #3a7bd5);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 6px rgba(10, 42, 90, 0.1);
+  }
+
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+
+.patient-modal .modal-header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  border-bottom: none;
+  padding: 1.5rem;
+}
+
+.patient-modal .modal-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.patient-modal .modal-body {
+  background-color: #f8f9fa;
+}
+
+.patient-profile-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  border-bottom: none;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: baseline;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+}
+
+.info-value {
+  color: #212529;
+  flex-grow: 1;
+}
+
+.badge {
+  padding: 0.35em 0.65em;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.modal-footer {
+  border-top: none;
+  background-color: #f8f9fa;
+  padding: 1rem 1.5rem;
+}
+
+.fas {
+  width: 20px;
+  text-align: center;
+  margin-right: 8px;
+}
+
+.patient-section {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.section-title {
+  color: #0a2a5a;
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #0a2a5a, #3a7bd5);
+  border-radius: 3px;
+}
+
+.patient-table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 46, 97, 0.1);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.patient-table thead th {
+  background: linear-gradient(135deg, #0a2a5a, #3a7bd5);
+  color: white;
+  font-weight: 500;
+  padding: 1rem;
+  border: none;
+  vertical-align: middle;
+}
+
+.patient-table thead th svg {
+  margin-right: 8px;
+}
+
+.patient-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.patient-table tbody tr:hover {
+  background-color: rgba(58, 123, 213, 0.05);
+}
+
+.patient-table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-top: 1px solid #e9ecef;
+  color: #0a2a5a;
+}
+
+.patient-table .name {
+  font-weight: 500;
+  color: #0a2a5a;
+}
+
+.patient-table .address {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 4px;
+}
+
+.btn-skyblue {
+  background: linear-gradient(135deg, #0a2a5a, #3a7bd5);
+  color: white;
+  border: none;
+}
+
+.btn-skyblue:hover {
+  background: linear-gradient(135deg, #0a2a5a, #2a5298);
+  color: white;
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #0a2a5a;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.patient-table .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.patient-table .btn svg {
+  margin: 0;
+}
+
+.patient-section p {
+  text-align: center;
+  color: #6c757d;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 46, 97, 0.1);
+}
+.btn-sm {
+  --bs-btn-padding-y: 15px;
+}
+.action-btn button{
+  width: 20% !important;
+}
