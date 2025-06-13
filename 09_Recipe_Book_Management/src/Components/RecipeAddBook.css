@@ -1,0 +1,115 @@
+.form-container {
+    max-width: 1000px !important;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .form-heading {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .form-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+  }
+  
+  .animated-form .form-control,
+  .animated-form .form-select {
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .animated-form .form-control:focus,
+  .animated-form .form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(244, 162, 97, 0.25);
+    transform: translateY(-2px);
+  }
+  
+  .submit-btn {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.75rem 2.5rem;
+    font-weight: 600;
+    width: 100%;
+    letter-spacing: 0.5px;
+    border-radius: 10px !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(40, 54, 24, 0.3);
+  }
+  
+  .submit-btn:hover {
+    background-color: #3a4b24;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(40, 54, 24, 0.4);
+  }
+  
+  /* Floating animation for form inputs */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .animated-form .form-group {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animated-form .form-group:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  .animated-form .form-group:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .animated-form .form-group:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  
+  .animated-form .form-group:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  
+  .animated-form .form-group:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .submit-btn {
+    background-color: var(--primary-color);
+    border: none;
+    font-size: 1.1rem;
+  }
+  

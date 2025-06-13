@@ -1,0 +1,258 @@
+:root {
+    --primary-color: #283618;
+    --accent-color: #f4a261;
+    --bg-color: #fefae0;
+    --input-border: #ccc;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --danger-color: #e76f51;
+    --success-color: #2a9d8f;
+    --comedy-color: #e9c46a;
+    --education-color: #457b9d;
+    --story-color: #9d6b53;
+  }
+  
+  .home-container {
+    padding: 2rem;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+  }
+  
+  .header-overlay {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #4a5c2e 100%);
+    color: white;
+    padding: 2rem;
+    margin: -2rem -2rem 2rem -2rem;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 0.8s ease-out;
+  }
+  
+  .home-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .home-subheading {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  
+  .spinner-box {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem;
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+  .book-table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .book-table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+  }
+  
+  .book-table td {
+    vertical-align: middle;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .book-row:hover td {
+    background-color: rgba(244, 162, 97, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .book-title {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .book-desc {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .book-price {
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+  
+  .book-img-container {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .book-img-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .book-img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+  
+  .category-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .category-badge.education {
+    background-color: var(--education-color);
+  }
+  
+  .category-badge.comedy {
+    background-color: var(--comedy-color);
+  }
+  
+  .category-badge.story {
+    background-color: var(--story-color);
+  }
+  
+  .edit-btn, .delete-btn {
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-btn {
+    background-color: var(--primary-color);
+  }
+  
+  .edit-btn:hover {
+    background-color: #3a4b24;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .delete-btn {
+    background-color: var(--danger-color);
+  }
+  
+  .delete-btn:hover {
+    background-color: #d1583a;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .search {
+    border: 2px solid var(--input-border);
+    border-radius: 30px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .search::placeholder {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 14px;
+  }
+  
+  .search:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--accent-color);
+  }
+  
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .book-table {
+      font-size: 0.9rem;
+    }
+    
+    .book-table th, .book-table td {
+      padding: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .home-container {
+      padding: 1rem;
+    }
+    
+    .header-overlay {
+      padding: 1.5rem;
+    }
+    
+    .home-heading {
+      font-size: 2rem;
+    }
+  }
+  .form-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+.form-heading { color: var(--primary-color); margin-bottom: 2rem; text-align: center; position: relative; padding-bottom: .5rem; font-weight:700; }
+.form-heading::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:80px; height:4px; background:var(--accent-color); border-radius:2px; }
+.animated-form .form-control, .animated-form .form-select { border-radius:8px; padding:.75rem 1rem; transition: all .3s ease; }
+.animated-form .form-control:focus, .animated-form .form-select:focus { transform: translateY(-2px); box-shadow:0 0 0 .25rem rgba(244,162,97,.25); }
+.submit-btn { background: var(--primary-color); border-radius:30px; padding:.75rem 2.5rem; font-weight:600; box-shadow:0 2px 10px rgba(40,54,24,.3); transition: .3s ease; }
+.submit-btn:hover { background:#3a4b24; transform: translateY(-3px); box-shadow:0 4px 15px rgba(40,54,24,.4); }
+
+.badge { text-transform: uppercase; padding: .3em .6em; font-size: .8rem; }
+.shadow-sm { transition: transform .2s, box-shadow .2s; }
+.shadow-sm:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
