@@ -1,0 +1,136 @@
+:root {
+  --primary: #157347;
+  --accent: #FFC107;
+  --light-bg: #f9f9f9;
+  --dark-text: #333;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+.product-details-container {
+  min-height: 100vh;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 15px;
+}
+
+.product-card-horizontal {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px var(--card-shadow);
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.image-box-horizontal {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.image-box-horizontal img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-box-horizontal img:hover {
+  transform: scale(1.05);
+}
+
+.info-box-horizontal {
+  flex: 2 1 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-box-horizontal h2 {
+  font-size: 1.8rem;
+  color: var(--dark-text);
+  margin-bottom: 10px;
+}
+
+.category {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.category span {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.desc {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin: 10px 0;
+}
+
+.add-to-cart-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.add-to-cart-button:hover {
+  background-color: #0e5e39;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px var(--card-shadow);
+}
+
+.back-home {
+  font-size: 0.9rem;
+  color: #777;
+  text-decoration: none;
+}
+
+.back-home:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .product-card-horizontal {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .info-box-horizontal {
+    align-items: center;
+  }
+
+  .info-box-horizontal h2 {
+    font-size: 1.5rem;
+  }
+
+  .price {
+    font-size: 1.3rem;
+  }
+}
