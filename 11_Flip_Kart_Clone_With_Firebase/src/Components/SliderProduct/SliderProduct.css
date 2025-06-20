@@ -1,0 +1,25 @@
+.slider-items {
+    overflow: hidden;
+    margin: 8px;
+  }
+  
+  .slider-items img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+  
+  @media (max-width: 576px) {
+    .slider-items img {
+      height: 180px;
+    }
+  }
+  
+  @media (min-width: 577px) and (max-width: 768px) {
+    .slider-items img {
+      height: 200px;
+    }
+  }
+  
+  

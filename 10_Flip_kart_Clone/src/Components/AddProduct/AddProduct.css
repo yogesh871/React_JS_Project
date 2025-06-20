@@ -123,3 +123,10 @@ textarea.form-input {
 .submit-btn:hover .btn-icon {
   transform: translateX(5px);
 }
+
+.error-text {
+  color: rgb(151, 4, 4);
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
