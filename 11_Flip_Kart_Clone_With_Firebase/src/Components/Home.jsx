@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BsPencilSquare } from 'react-icons/bs';
-import {  FaEye } from 'react-icons/fa';
-import { getAllProductsAsync, deleteProductAsync,} from '../Services/Actions/productAction';
+import { FaEye } from 'react-icons/fa';
+import {
+  getAllProductsAsync,
+  deleteProductAsync,
+} from '../Services/Actions/productAction';
 import TitleProduct from './TitleProduact/TitleProduct';
 import SliderProduct from './SliderProduct/SliderProduct';
 import './Home.css';
+import { Button } from 'react-bootstrap';
 
 const Home = ({ searchQuery }) => {
   const dispatch = useDispatch();
@@ -16,6 +20,9 @@ const Home = ({ searchQuery }) => {
   const [selectedPrice, setSelectedPrice] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 18;
   useEffect(() => {
     dispatch(getAllProductsAsync());
   }, [dispatch]);
@@ -24,13 +31,17 @@ const Home = ({ searchQuery }) => {
     filterProducts();
   }, [products, selectedPrice, searchQuery]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedPrice, searchQuery]);
+
   const filterProducts = () => {
     let updated = [...products];
 
     if (selectedPrice) {
       let [min, max] = selectedPrice.split('-').map(Number);
       if (!max) max = Infinity;
-      updated = updated.filter(p => {
+      updated = updated.filter((p) => {
         const price = parseInt(p.price, 10);
         return price >= min && price <= max;
       });
@@ -38,10 +49,11 @@ const Home = ({ searchQuery }) => {
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      updated = updated.filter(p =>
-        p.name.toLowerCase().includes(query) ||
-        p.desc.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query)
+      updated = updated.filter(
+        (p) =>
+          p.name.toLowerCase().includes(query) ||
+          p.desc.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query)
       );
     }
 
@@ -60,6 +72,12 @@ const Home = ({ searchQuery }) => {
   const handleCategoryClick = (category) => {
     navigate(`/allproducts?category=${encodeURIComponent(category)}`);
   };
+
+  // Pagination calculations
+  const indexOfLast = currentPage * productsPerPage;
+  const indexOfFirst = indexOfLast - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   return (
     <>
@@ -84,7 +102,7 @@ const Home = ({ searchQuery }) => {
 
       <div className="bg-white py-4 my-2 mx-2">
         <div className="horizontal-scroll">
-          {filteredProducts.map((product) => (
+          {currentProducts.map((product) => (
             <div
               className="product-card"
               key={product.id}
@@ -125,7 +143,10 @@ const Home = ({ searchQuery }) => {
                     className="icon-btn edit-btn"
                     onClick={(e) => handleEdit(product.id, e)}
                   >
-                    <BsPencilSquare className="fs-5" style={{ color: '#157347' }} />
+                    <BsPencilSquare
+                      className="fs-5"
+                      style={{ color: '#157347' }}
+                    />
                   </button>
                 </div>
               </div>
@@ -142,7 +163,24 @@ const Home = ({ searchQuery }) => {
             </div>
           ))}
         </div>
+
+      <div className="d-flex justify-content-center my-3">
+        <Button variant='outline-success'> prev</Button>
+        {Array.from({ length: totalPages }, (_, index) => ( 
+          <button 
+          key={index + 1}
+          className={`btn mx-1 ${currentPage === index + 1 ? 'btn-success' : 'btn-outline-success'
+        }`}
+        onClick={() => setCurrentPage(index + 1)}
+        >
+            {index + 1}
+          </button>
+        
+        ))}
+             <Button variant='outline-success'> Next</Button>
+
       </div>
+        </div>
     </>
   );
 };
