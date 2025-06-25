@@ -153,6 +153,12 @@
     --bs-btn-font-size : 14px  !important;
   }
 
+  @media (min-width: 993px) {
+    .horizontal-scroll {
+        justify-content: center !important;
+        flex-wrap: wrap;
+    }
+  }
 
 @media (max-width: 576px) {
   .horizontal-scroll {
@@ -208,7 +214,7 @@
 
 @media (min-width: 577px) and (max-width: 992px) {
   .horizontal-scroll {
-    justify-content: start;
+    justify-content: center ;
     flex-wrap: wrap;
   }
 
