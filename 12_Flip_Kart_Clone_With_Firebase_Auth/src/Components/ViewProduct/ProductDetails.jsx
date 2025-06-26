@@ -10,14 +10,19 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products } = useSelector((state) => state.productReducer);
+  const { user } = useSelector((state) => state.authReducer);
 
   const product = products.find(p => p.id === id);
 
   if (!product) return <p className="text-center m-5">Product not found.</p>;
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
-    navigate('/Add_To_Cart');
+    if (user) {
+      dispatch(addToCart(product));
+      navigate('/Add_To_Cart');
+    } else {
+      navigate('/Sign_Up');
+    }
   };
 
   return (

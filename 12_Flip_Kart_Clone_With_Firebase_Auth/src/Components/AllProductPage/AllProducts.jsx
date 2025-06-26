@@ -23,6 +23,8 @@ const AllProducts = ({ searchQuery }) => {
   const [selectedPrice, setSelectedPrice] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  const { user } = useSelector((state) => state.authReducer);
+
   useEffect(() => {
     if (products.length === 0) dispatch(getAllProductsAsync());
   }, [dispatch, products.length]);
@@ -63,7 +65,11 @@ const AllProducts = ({ searchQuery }) => {
   };
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+    if (user) {
+      dispatch(addToCart(product));
+    } else {
+      navigate("/Sign_Up");
+    }
   };
 
 
