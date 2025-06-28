@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getCartItems,
   removeFromCart,
-  increaseQty,
-  decreaseQty
+  increaseQtyFirebase,
+  decreaseQtyFirebase,
+  clearCart
 } from '../../Services/Actions/productAction';
 import './addtocart.css';
 import { Button, Modal } from 'react-bootstrap';
@@ -13,14 +14,18 @@ import done from '../../assets/img/done.jpeg';
 
 const AddToCart = () => {
   const { cartItems } = useSelector((state) => state.productReducer);
+  const { user: currentUser } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    dispatch(getCartItems());
-  }, [dispatch]);
+    if (!currentUser?.uid) {
+      navigate('/Sign_In');
+      return;
+    }
+    dispatch(getCartItems(currentUser.uid));
+  }, [dispatch, currentUser, navigate]);
 
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + item.quantity * Number(item.price),
@@ -28,6 +33,9 @@ const AddToCart = () => {
   );
 
   const handlePlaceOrder = () => {
+    if (currentUser?.uid) {
+      dispatch(clearCart(currentUser.uid));
+    }
     setShowModal(true);
   };
 
@@ -42,9 +50,7 @@ const AddToCart = () => {
         <div className="empty-cart">
           <h2 className="cart-heading">Your Shopping Cart</h2>
           <p>Your cart is empty</p>
-          <Button variant="primary" className="shop-now-btn">
-            Shop Now
-          </Button>
+          <Button variant="primary" className="shop-now-btn" onClick={() => navigate('/')}>Shop Now</Button>
         </div>
       ) : (
         <>
@@ -59,22 +65,43 @@ const AddToCart = () => {
                 <div className="cart-details">
                   <h4>{product.name}</h4>
                   <p className="text-muted">
-                    {product.desc.length > 180
-                      ? product.desc.slice(0, 180) + '...'
-                      : product.desc}
+                    {product.desc.length > 180 ? product.desc.slice(0, 180) + '...' : product.desc}
                   </p>
                   <p><strong>Category:</strong> {product.category}</p>
                   <p className="price"><strong>Price:</strong> ₹{product.price}</p>
                   <div className="quantity-controls">
-                    <Button variant="outline-success" onClick={() => dispatch(decreaseQty(product.id))} className="qty-btn">−</Button>
+                    <Button
+                      variant="outline-success"
+                      onClick={() =>
+                        currentUser && dispatch(decreaseQtyFirebase(currentUser.uid, product))
+                      }
+                      className="qty-btn"
+                    >
+                      −
+                    </Button>
                     <span className="qty-value">{product.quantity}</span>
-                    <Button variant="outline-success" onClick={() => dispatch(increaseQty(product.id))} className="qty-btn">+</Button>
+                    <Button
+                      variant="outline-success"
+                      onClick={() =>
+                        currentUser && dispatch(increaseQtyFirebase(currentUser.uid, product))
+                      }
+                      className="qty-btn"
+                    >
+                      +
+                    </Button>
                   </div>
                 </div>
 
                 <div className="cart-actions">
-                  <button className="save-btn" onClick={() => {}}>SAVE FOR LATER</button>
-                  <button className="remove-btn" onClick={() => dispatch(removeFromCart(product.id))}>REMOVE</button>
+                  <button className="save-btn">SAVE FOR LATER</button>
+                  <button
+                    className="remove-btn"
+                    onClick={() =>
+                      currentUser && dispatch(removeFromCart(currentUser.uid, product.id))
+                    }
+                  >
+                    REMOVE
+                  </button>
                 </div>
               </div>
             ))}
@@ -117,15 +144,9 @@ const AddToCart = () => {
 
       <Modal show={showModal} onHide={handleDone} centered>
         <Modal.Body className="text-center p-5">
-          <img
-            src={done}
-            alt="Success"
-            style={{ width: '80px', marginBottom: '20px' }}
-          />
+          <img src={done} alt="Success" style={{ width: '80px', marginBottom: '20px' }} />
           <h4 className="mb-3">Order Placed Successfully!</h4>
-          <Button variant="success" onClick={handleDone}>
-            Done
-          </Button>
+          <Button variant="success" onClick={handleDone}>Done</Button>
         </Modal.Body>
       </Modal>
     </div>

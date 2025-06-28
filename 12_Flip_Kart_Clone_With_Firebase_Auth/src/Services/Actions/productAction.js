@@ -18,31 +18,21 @@ export const addToCartSuccess = (product) => ({ type: ADD_TO_CART, payload: prod
 export const removeFromCartSuccess = (id) => ({ type: REMOVE_FROM_CART, payload: id });
 export const setCartItems = (items) => ({ type: SET_CART_ITEMS, payload: items });
 
-export const increaseQty = (id) => ({
-  type: INCREASE_QTY,
-  payload: id,
-});
-
-export const decreaseQty = (id) => ({
-  type: DECREASE_QTY,
-  payload: id,
-});
+export const increaseQty = (id) => ({ type: INCREASE_QTY, payload: id });
+export const decreaseQty = (id) => ({ type: DECREASE_QTY, payload: id });
 
 export const getAllProductsAsync = () => async (dispatch) => {
   dispatch(loading());
-    let data = []
-    let res = await getDocs(collection(db, "products"));
-        res.forEach(rec =>{
-                data.push(rec.data());
-              })
-              dispatch(getAllProducts(data));
-
+  let data = [];
+  let res = await getDocs(collection(db, "products"));
+  res.forEach((rec) => data.push(rec.data()));
+  dispatch(getAllProducts(data));
 };
 
 export const addNewProductAsync = (data) => async (dispatch) => {
   dispatch(loading());
   try {
-    await setDoc(doc(db, "products", data.id), data);      
+    await setDoc(doc(db, "products", data.id), data);
     dispatch(addNewProductSuc());
     dispatch(getAllProductsAsync());
   } catch (err) {
@@ -53,24 +43,20 @@ export const addNewProductAsync = (data) => async (dispatch) => {
 export const deleteProductAsync = (id) => async (dispatch) => {
   dispatch(loading());
   try {
-     await deleteDoc(doc(db, "products", id));
+    await deleteDoc(doc(db, "products", id));
     dispatch(getAllProductsAsync());
   } catch (err) {
     dispatch(addNewProductRej(err.message));
   }
 };
 
-
 export const getProductAsync = (id) => async (dispatch) => {
   dispatch(loading());
-
   try {
     const docRef = doc(db, "products", id);
     const docSnap = await getDoc(docRef);
-
     if (docSnap.exists()) {
-      const productData = docSnap.data();
-      dispatch(getProduct(productData));
+      dispatch(getProduct(docSnap.data()));
     } else {
       dispatch(addNewProductRej("No such document found"));
     }
@@ -81,7 +67,6 @@ export const getProductAsync = (id) => async (dispatch) => {
 
 export const updateProductAsync = (data) => async (dispatch) => {
   dispatch(loading());
-
   try {
     await setDoc(doc(db, "products", data.id), data);
     dispatch(updateProduct());
@@ -90,33 +75,78 @@ export const updateProductAsync = (data) => async (dispatch) => {
   }
 };
 
-export const addToCart = (product) => async (dispatch) => {
-  try {
-    const productWithQty = { ...product, quantity: 1 };
-    await setDoc(doc(db, "cart", productWithQty.id), productWithQty);   
 
+export const addToCart = (product) => async (dispatch, getState) => {
+  try {
+    const { authReducer: { user } } = getState();
+    if (!user || !user.uid) return;
+
+    const productWithQty = { ...product, quantity: 1 };
+    const productRef = doc(db, "cart", user.uid, "items", product.id);
+
+    await setDoc(productRef, productWithQty);
     dispatch(addToCartSuccess(productWithQty));
   } catch (error) {
     console.error("Add to cart failed:", error);
   }
 };
 
-export const removeFromCart = (id) => async (dispatch) => {
-
+export const removeFromCart = (uid, id) => async (dispatch) => {
   try {
-    await deleteDoc(doc(db, "cart", id));
+    const productRef = doc(db, "cart", uid, "items", id);
+    await deleteDoc(productRef);
     dispatch(removeFromCartSuccess(id));
   } catch (error) {
     console.error("Remove from cart failed:", error);
   }
 };
 
-export const getCartItems = () => async (dispatch) => {
+export const getCartItems = (uid) => async (dispatch) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "cart"));
+    if (!uid) return;
+    const userCartRef = collection(doc(db, "cart", uid), "items");
+    const querySnapshot = await getDocs(userCartRef);
     const cartItems = querySnapshot.docs.map(doc => doc.data());
     dispatch(setCartItems(cartItems));
   } catch (error) {
     console.error("Fetch cart items failed:", error);
+  }
+};
+
+export const increaseQtyFirebase = (uid, product) => async (dispatch) => {
+  try {
+    const newQty = product.quantity + 1;
+    const updatedProduct = { ...product, quantity: newQty };
+    await setDoc(doc(db, "cart", uid, "items", product.id), updatedProduct);
+    dispatch(increaseQty(product.id));
+  } catch (error) {
+    console.error("Increase qty failed:", error);
+  }
+};
+
+export const decreaseQtyFirebase = (uid, product) => async (dispatch) => {
+  try {
+    const newQty = product.quantity - 1;
+    if (newQty <= 0) {
+      dispatch(removeFromCart(uid, product.id));
+    } else {
+      const updatedProduct = { ...product, quantity: newQty };
+      await setDoc(doc(db, "cart", uid, "items", product.id), updatedProduct);
+      dispatch(decreaseQty(product.id));
+    }
+  } catch (error) {
+    console.error("Decrease qty failed:", error);
+  }
+};
+
+export const clearCart = (uid) => async (dispatch) => {
+  try {
+    const cartRef = collection(doc(db, "cart", uid), "items");
+    const querySnapshot = await getDocs(cartRef);
+    const batchDeletes = querySnapshot.docs.map(docSnap => deleteDoc(doc(db, "cart", uid, "items", docSnap.id)));
+    await Promise.all(batchDeletes);
+    dispatch(setCartItems([]));
+  } catch (error) {
+    console.error("Clear cart failed:", error);
   }
 };

@@ -73,7 +73,6 @@ const Home = ({ searchQuery }) => {
     navigate(`/allproducts?category=${encodeURIComponent(category)}`);
   };
 
-  // Pagination calculations
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);

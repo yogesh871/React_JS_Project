@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signOutAsync } from '../../services/Actions/authAction';
+import { logoutUser } from '../../services/Actions/authAction';
 
 import { CgProfile } from 'react-icons/cg';
 import { BsCart3, BsBox2 } from 'react-icons/bs';
@@ -25,10 +25,9 @@ const Header = ({ setSearchQuery }) => {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    dispatch(signOutAsync());
+    dispatch(logoutUser());
   };
 
-  
   useEffect(() => {
     // if (!user) navigate("/sign-in");
   }, [user]);
@@ -56,13 +55,13 @@ const Header = ({ setSearchQuery }) => {
             <Navbar expand="md" variant="light">
               <Nav className='d-flex flex-row align-items-start justify-content-center'>
                 <div className='d-flex align-items-center'>
-                <CgProfile className='fs-5' />
+                  <CgProfile className='fs-5' />
                   <NavDropdown title={user ? user.email : 'Login'} menuVariant="dark">
                     {!user && (
                       <NavDropdown.Item>
                         <div className='d-flex justify-content-between'>
-                          <span>New Customer?</span>
-                          <Link to="/Sign_Up" className='text-black text-decoration-none'>Sign Up</Link>
+                          <span className='me-3'>New Customer?</span>
+                          <Link to="/Sign_Up" className='text-light text-decoration-none'>Sign Up</Link>
                         </div>
                       </NavDropdown.Item>
                     )}
@@ -70,7 +69,7 @@ const Header = ({ setSearchQuery }) => {
                     <NavDropdown.Item><CgProfile /> My Profile</NavDropdown.Item>
                     <NavDropdown.Item><LuDiamond /> Flipkart Plus Zone</NavDropdown.Item>
                     <NavDropdown.Item><BsBox2 /> Orders</NavDropdown.Item>
-                    <NavDropdown.Item><CiHeart /> Wishlist</NavDropdown.Item>
+                   <NavDropdown.Item><CiHeart /> Wishlist</NavDropdown.Item>
                     <NavDropdown.Item><PiGiftLight /> Rewards</NavDropdown.Item>
                     <NavDropdown.Item><IoCardOutline /> Gift Cards</NavDropdown.Item>
                     {user && (

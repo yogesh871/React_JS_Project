@@ -1,59 +1,54 @@
-// src/services/Actions/authAction.js
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { auth } from "../../firebase";
+import { onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../Firebase";
 
-const signUpSuc = () => ({ type: "SIGN_UP_SUC" });
-const signINSuc = (user) => ({ type: "SIGN_IN_SUC", payload: user });
-const signOUTSUC = () => ({ type: "SIGN_OUT_SUC" });
-const errorMsg = (err) => ({ type: "ERROR", payload: err });
+export const signINSuc = (user) => ({ type: "SIGN_IN_SUC", payload: user });
+export const signOUTSUC = () => ({ type: "SIGN_OUT_SUC" });
+export const signUPSuc = () => ({ type: "SIGN_UP_SUC" });
+export const setError = (msg) => ({ type: "ERROR", payload: msg });
 
-export const checkAuthStateAsync = () => (dispatch) => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) dispatch(signINSuc(user));
-    else dispatch(signOUTSUC());
-  });
-};
-
-export const signUpAsync = (data) => async (dispatch) => {
+export const signINAsync = ({ email, password }) => async (dispatch) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, data.email, data.password);
-    dispatch(signUpSuc());
-  } catch (error) {
-    dispatch(errorMsg(error.message));
+    const res = await signInWithEmailAndPassword(auth, email, password);
+    dispatch(signINSuc(res.user));
+  } catch (err) {
+    dispatch(setError(err.message));
   }
 };
 
-export const signINAsync = (data) => async (dispatch) => {
+export const signUpAsync = ({ email, password }) => async (dispatch) => {
   try {
-    const res = await signInWithEmailAndPassword(auth, data.email, data.password);
-    dispatch(signINSuc(res.user));
-  } catch (error) {
-    dispatch(errorMsg(error.message));
+    await createUserWithEmailAndPassword(auth, email, password);
+    dispatch(signUPSuc());
+  } catch (err) {
+    dispatch(setError(err.message));
   }
 };
 
 export const googleSignInAsync = () => async (dispatch) => {
+  const provider = new GoogleAuthProvider();
   try {
-    const provider = new GoogleAuthProvider();
     const res = await signInWithPopup(auth, provider);
     dispatch(signINSuc(res.user));
-  } catch (error) {
-    dispatch(errorMsg(error.message));
+  } catch (err) {
+    dispatch(setError(err.message));
   }
 };
 
-export const signOutAsync = () => async (dispatch) => {
+export const checkAuthStateAsync = () => (dispatch) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(signINSuc(user));
+    } else {
+      dispatch(signOUTSUC());
+    }
+  });
+};
+
+export const logoutUser = () => async (dispatch) => {
   try {
     await signOut(auth);
     dispatch(signOUTSUC());
-  } catch (error) {
-    dispatch(errorMsg(error.message));
+  } catch (err) {
+    console.error("Logout error:", err);
   }
 };
