@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaCircleUser } from "react-icons/fa6";
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAsync } from '../../services/Actions/authAction';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Sign_Up = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Sign_Up = () => {
     password: '',
     cpassword: ''
   });
+
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,13 +33,19 @@ const Sign_Up = () => {
       alert("Passwords do not match");
     }
   };
-
   useEffect(() => {
-    if (isCreated) navigate('/Sign_In');
-    // if (isCreated) navigate('/');
+    if (isCreated) {
+      toast.success("User created successfully!");
+      setTimeout(() => {
+        navigate('/Sign_In');
+      }, 1500);
+    }
   }, [isCreated]);
+  
 
   return (
+  <>
+    <ToastContainer />
     <div className="product-form-container">
       <div className="form-card" style={{ maxWidth: "700px" }}>
         <div className='d-flex justify-content-between align-items-end'>
@@ -58,7 +67,7 @@ const Sign_Up = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-            />
+              />
           </Form.Group>
 
           <Form.Group className="form-group mb-3">
@@ -80,7 +89,7 @@ const Sign_Up = () => {
               name="cpassword"
               value={formData.cpassword}
               onChange={handleChange}
-            />
+              />
           </Form.Group>
 
           <Button className="submit-btn w-100 py-2" variant="primary" type="submit">
@@ -96,6 +105,7 @@ const Sign_Up = () => {
         </Form>
       </div>
     </div>
+              </>
   );
 };
 

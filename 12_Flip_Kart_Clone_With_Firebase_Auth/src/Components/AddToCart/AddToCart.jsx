@@ -34,14 +34,16 @@ const AddToCart = () => {
 
   const handlePlaceOrder = () => {
     if (currentUser?.uid) {
+      const orderItems = [...cartItems];
+      localStorage.setItem('recentOrder', JSON.stringify(orderItems));
       dispatch(clearCart(currentUser.uid));
+      setShowModal(true);
     }
-    setShowModal(true);
   };
 
   const handleDone = () => {
     setShowModal(false);
-    navigate('/');
+    navigate('/order');
   };
 
   return (
@@ -50,7 +52,9 @@ const AddToCart = () => {
         <div className="empty-cart">
           <h2 className="cart-heading">Your Shopping Cart</h2>
           <p>Your cart is empty</p>
-          <Button variant="primary" className="shop-now-btn" onClick={() => navigate('/')}>Shop Now</Button>
+          <Button variant="primary" className="shop-now-btn" onClick={() => navigate('/')}>
+            Shop Now
+          </Button>
         </div>
       ) : (
         <>

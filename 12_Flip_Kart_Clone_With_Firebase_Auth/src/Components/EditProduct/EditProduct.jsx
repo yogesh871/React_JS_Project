@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProductAsync, updateProductAsync } from "../../Services/Actions/productAction";
 import "../AddProduct/AddProduct.css";
 import { BsPencilSquare } from 'react-icons/bs';
+import { ToastContainer, toast } from "react-toastify";
 
 
 const EditProduct = () => {
@@ -30,8 +31,13 @@ const EditProduct = () => {
   }, [product]);
 
   useEffect(() => {
-    if (isUpdated) navigate("/");
+    setTimeout(() => {
+      
+      if (isUpdated) navigate("/");
+    }, 2500);
   }, [isUpdated]);
+
+  const notify = () => toast.success("Product Edit Successfully!",  {autoClose: 2500});
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -43,6 +49,8 @@ const EditProduct = () => {
   };
 
   return (
+    <>
+      <ToastContainer />
     <div className="product-form-container">
     <div className="form-card">
       <h2 className="form-title">
@@ -73,7 +81,7 @@ const EditProduct = () => {
               onChange={handleChange}
               className="form-input"
               required
-            />
+              />
           </div>
         </div>
 
@@ -86,7 +94,7 @@ const EditProduct = () => {
             onChange={handleChange}
             className="form-input"
             required
-          />
+            />
         </div>
 
         <div className="form-group">
@@ -111,7 +119,7 @@ const EditProduct = () => {
             onChange={handleChange}
             className="form-select"
             required
-          >
+            >
             <option value="" disabled>Select Category</option>
             <option value="Electronics">Electronics</option>
             <option value="Fashion">Fashion</option>
@@ -124,13 +132,14 @@ const EditProduct = () => {
           </select>
         </div>
 
-        <button type="submit" className="submit-btn">
+        <button type="submit" className="submit-btn" onClick={notify}>
           <span className="btn-text">Update Product</span>
           <span className="btn-icon">✔</span>
         </button>
       </form>
     </div>
   </div>
+            </>
 
 
 

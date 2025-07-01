@@ -17,6 +17,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Container } from 'react-bootstrap';
 import './Header.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Header = ({ setSearchQuery }) => {
   const { cartItems } = useSelector((state) => state.productReducer);
@@ -26,6 +27,7 @@ const Header = ({ setSearchQuery }) => {
 
   const handleLogOut = () => {
     dispatch(logoutUser());
+    toast.error("User Is LogOut!");
   };
 
   useEffect(() => {
@@ -33,7 +35,10 @@ const Header = ({ setSearchQuery }) => {
   }, [user]);
 
   return (
+    <>
+     <ToastContainer />
     <header className="header-container shadow-sm bg-light">
+      
       <Container>
         <div className="header-top d-flex">
           <div className="logo-search">
@@ -61,19 +66,19 @@ const Header = ({ setSearchQuery }) => {
                       <NavDropdown.Item>
                         <div className='d-flex justify-content-between'>
                           <span className='me-3'>New Customer?</span>
-                          <Link to="/Sign_Up" className='text-light text-decoration-none'>Sign Up</Link>
+                          <Link to="/Sign_In" className='text-light text-decoration-none'>Sign Up</Link>
                         </div>
                       </NavDropdown.Item>
                     )}
                     <NavDropdown.Divider />
                     <NavDropdown.Item><CgProfile /> My Profile</NavDropdown.Item>
                     <NavDropdown.Item><LuDiamond /> Flipkart Plus Zone</NavDropdown.Item>
-                    <NavDropdown.Item><BsBox2 /> Orders</NavDropdown.Item>
+                    <NavDropdown.Item><BsBox2  /><Link to={"/order"} className='text-light'> Orders</Link></NavDropdown.Item>
                    <NavDropdown.Item><CiHeart /> Wishlist</NavDropdown.Item>
                     <NavDropdown.Item><PiGiftLight /> Rewards</NavDropdown.Item>
                     <NavDropdown.Item><IoCardOutline /> Gift Cards</NavDropdown.Item>
                     {user && (
-                      <NavDropdown.Item onClick={handleLogOut} className="text-danger">
+                      <NavDropdown.Item onClick={handleLogOut}  className="text-danger">
                         Log Out
                       </NavDropdown.Item>
                     )}
@@ -112,6 +117,7 @@ const Header = ({ setSearchQuery }) => {
         </div>
       </Container>
     </header>
+                  </>
   );
 };
 

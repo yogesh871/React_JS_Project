@@ -13,6 +13,7 @@ import ProductDetails from './Components/ViewProduct/ProductDetails';
 import AllProducts from './Components/AllProductPage/AllProducts';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Order from './Components/Order/Order';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,6 +35,9 @@ function App() {
         <Route path="/allproducts" element={<AllProducts searchQuery={searchQuery} />} />
         <Route path="/Sign_In" element={<Sign_In />} />
         <Route path="/Sign_Up" element={<Sign_Up />} />
+        <Route path="/order" element={<Order />} />
+        
+
       </Routes>
     </>
   );

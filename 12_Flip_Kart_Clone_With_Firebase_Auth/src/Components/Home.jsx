@@ -11,18 +11,20 @@ import TitleProduct from './TitleProduact/TitleProduct';
 import SliderProduct from './SliderProduct/SliderProduct';
 import './Home.css';
 import { Button } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = ({ searchQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products } = useSelector((state) => state.productReducer);
+  const { user } = useSelector((state) => state.authReducer); 
 
   const [selectedPrice, setSelectedPrice] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 18;
+
   useEffect(() => {
     dispatch(getAllProductsAsync());
   }, [dispatch]);
@@ -61,11 +63,27 @@ const Home = ({ searchQuery }) => {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteProductAsync(id));
+    if (!user) {
+      navigate('/Sign_In'); 
+      return;
+    }
+
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (confirmDelete) {
+      dispatch(deleteProductAsync(id));
+      toast.error('Product deleted successfully!', {
+        autoClose: 2500,
+        position: 'top-right',
+      });
+    }
   };
 
   const handleEdit = (id, e) => {
     e.stopPropagation();
+    if (!user) {
+      navigate('/Sign_In'); 
+      return;
+    }
     navigate(`/editproduct/${id}`);
   };
 
@@ -80,6 +98,7 @@ const Home = ({ searchQuery }) => {
 
   return (
     <>
+      <ToastContainer />
       <TitleProduct />
       <SliderProduct />
 
@@ -122,10 +141,7 @@ const Home = ({ searchQuery }) => {
                       handleDelete(product.id);
                     }}
                   >
-                    <i
-                      className="fa-solid fa-xmark"
-                      style={{ color: '#157347' }}
-                    />
+                    <i className="fa-solid fa-xmark" style={{ color: '#157347' }} />
                   </button>
 
                   <button
@@ -142,10 +158,7 @@ const Home = ({ searchQuery }) => {
                     className="icon-btn edit-btn"
                     onClick={(e) => handleEdit(product.id, e)}
                   >
-                    <BsPencilSquare
-                      className="fs-5"
-                      style={{ color: '#157347' }}
-                    />
+                    <BsPencilSquare className="fs-5" style={{ color: '#157347' }} />
                   </button>
                 </div>
               </div>
@@ -163,23 +176,36 @@ const Home = ({ searchQuery }) => {
           ))}
         </div>
 
-      <div className="d-flex justify-content-center my-3">
-        <Button variant='outline-success'> prev</Button>
-        {Array.from({ length: totalPages }, (_, index) => ( 
-          <button 
-          key={index + 1}
-          className={`btn mx-1 ${currentPage === index + 1 ? 'btn-success' : 'btn-outline-success'
-        }`}
-        onClick={() => setCurrentPage(index + 1)}
-        >
-            {index + 1}
-          </button>
-        
-        ))}
-             <Button variant='outline-success'> Next</Button>
-
-      </div>
+        <div className="d-flex justify-content-center my-3">
+          <Button
+            variant="outline-success"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+          >
+            Prev
+          </Button>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              className={`btn mx-1 ${
+                currentPage === index + 1
+                  ? 'btn-success'
+                  : 'btn-outline-success'
+              }`}
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <Button
+            variant="outline-success"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+          >
+            Next
+          </Button>
         </div>
+      </div>
     </>
   );
 };

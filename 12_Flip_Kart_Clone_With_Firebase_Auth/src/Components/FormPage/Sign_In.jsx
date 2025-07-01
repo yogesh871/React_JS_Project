@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./Form.css";
@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaArrowRight, FaGoogle } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { googleSignInAsync, signINAsync } from '../../services/Actions/authAction';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Sign_In = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const Sign_In = () => {
     email: '', 
     password: '' 
   });
+  
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,12 +37,22 @@ const Sign_In = () => {
     setIsSubmitting(true);
     dispatch(googleSignInAsync()).finally(() => setIsSubmitting(false));
   };
+  const prevUser = useRef(null);
 
   useEffect(() => {
-    if (user) navigate('/');
+    if (user && !prevUser.current) {
+      toast.success("User Login Successfully!");
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
+    }
+    prevUser.current = user;
   }, [user, navigate]);
+  
 
   return (
+    <>
+    <ToastContainer/>
     <div className="product-form-container">
       <div className="form-card" style={{ maxWidth: "700px" }}>
         <div className='d-flex justify-content-between align-items-end'>
@@ -132,6 +145,7 @@ const Sign_In = () => {
         </Form>
       </div>
     </div>
+            </>
   );
 };
 

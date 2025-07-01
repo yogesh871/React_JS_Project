@@ -3,27 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { BsCart3 } from 'react-icons/bs';
-import {  FaEye } from 'react-icons/fa'; 
+import { FaEye } from 'react-icons/fa';
 
 import {
   getAllProductsAsync,
   addToCart,
 } from '../../Services/Actions/productAction';
+
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import '../Home.css';
 
 const AllProducts = ({ searchQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const { products } = useSelector((state) => state.productReducer);
+  const { user } = useSelector((state) => state.authReducer);
 
   const queryParams = new URLSearchParams(location.search);
   const category = decodeURIComponent(queryParams.get('category') || '');
 
   const [selectedPrice, setSelectedPrice] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-  const { user } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (products.length === 0) dispatch(getAllProductsAsync());
@@ -67,14 +71,44 @@ const AllProducts = ({ searchQuery }) => {
   const handleAddToCart = (product) => {
     if (user) {
       dispatch(addToCart(product));
+
+      toast.success(
+        <div className="d-flex align-items-center">
+          <img
+            src={product.image}
+            alt={product.name}
+            style={{
+              width: '50px',
+              height: '50px',
+              objectFit: 'cover',
+              marginRight: '10px',
+              borderRadius: '6px'
+            }}
+          />
+          <div>
+            <strong>{product.name}</strong><br />
+            added to cart!
+          </div>
+        </div>,
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } else {
-      navigate("/Sign_Up");
+      navigate("/Sign_In");
     }
   };
 
-
   return (
     <div className="bg-white py-4 my-2 mx-2">
+      <ToastContainer />
+
       <h2 className="text-center mb-4">
         All Products {category && `— ${category}`}
       </h2>
@@ -106,15 +140,12 @@ const AllProducts = ({ searchQuery }) => {
                   className="product-image"
                 />
                 <div className="action-buttons d-flex flex-column">
-                  
-
                   <button
                     className="icon-btn view-btn"
                     onClick={() => navigate(`/product/${product.id}`)}
                   >
                     <FaEye className="fs-5" style={{ color: '#157347' }} />
                   </button>
-
                 </div>
               </div>
 
