@@ -18,6 +18,7 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductDetails.css';
+import FlipkartFooter from '../Footer/Footer_comp';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -77,7 +78,8 @@ const ProductDetails = () => {
 
  
 
-  return (
+  return ( 
+    <>
     <div className="product-details-container flipkart-style">
       <ToastContainer />
 
@@ -187,6 +189,9 @@ const ProductDetails = () => {
             </div>
           </div>
     </div>
+    <FlipkartFooter/>
+
+    </>
   );
 };
 

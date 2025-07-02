@@ -14,6 +14,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import '../Home.css';
+import FlipkartFooter from '../Footer/Footer_comp';
 
 const AllProducts = ({ searchQuery }) => {
   const dispatch = useDispatch();
@@ -106,6 +107,7 @@ const AllProducts = ({ searchQuery }) => {
   };
 
   return (
+    <>
     <div className="bg-white py-4 my-2 mx-2">
       <ToastContainer />
 
@@ -160,7 +162,7 @@ const AllProducts = ({ searchQuery }) => {
                 <Button
                   variant="success"
                   onClick={() => handleAddToCart(product)}
-                >
+                  >
                   Add To Cart <BsCart3 className="fs-6 ms-1" />
                 </Button>
               </div>
@@ -171,6 +173,9 @@ const AllProducts = ({ searchQuery }) => {
         )}
       </div>
     </div>
+    <FlipkartFooter/>
+
+          </>
   );
 };
 

@@ -13,6 +13,7 @@ import './Home.css';
 import { Button } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import  FlipkartFooter  from './Footer/Footer_comp';
 
 const Home = ({ searchQuery }) => {
   const dispatch = useDispatch();
@@ -206,6 +207,7 @@ const Home = ({ searchQuery }) => {
           </Button>
         </div>
       </div>
+      <FlipkartFooter/>
     </>
   );
 };
