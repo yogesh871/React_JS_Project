@@ -229,6 +229,13 @@
   }
 }
 
+@media (max-width: 576px) {
+  .item-price{
+    display: none;
+  }
+  
+}
+
 @media (max-width: 480px) {
   .order-meta {
     flex-direction: column;

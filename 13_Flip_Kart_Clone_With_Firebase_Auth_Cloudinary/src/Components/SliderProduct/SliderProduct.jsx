@@ -6,7 +6,6 @@ import Slider_4 from "../../assets/img/Slider-4.webp"
 import Slider_5 from "../../assets/img/Slider-5.webp" 
 import Slider_6 from "../../assets/img/Slider-6.webp" 
 import Slider_7 from "../../assets/img/Slider-7.webp" 
-import Slider_8 from "../../assets/img/Slider-8.webp" 
 import './SliderProduct.css';
 
 function SliderProduct() {
@@ -19,7 +18,6 @@ function SliderProduct() {
       <Carousel.Item interval={2000}><img src={Slider_5} alt="slide 5" /></Carousel.Item>
       <Carousel.Item interval={2000}><img src={Slider_6} alt="slide 6" /></Carousel.Item>
       <Carousel.Item interval={2000}><img src={Slider_7} alt="slide 7" /></Carousel.Item>
-      <Carousel.Item interval={2000}><img src={Slider_8} alt="slide 8" /></Carousel.Item>
     </Carousel>
   );
 }

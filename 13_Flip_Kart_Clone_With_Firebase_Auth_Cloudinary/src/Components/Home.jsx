@@ -135,7 +135,7 @@ const Home = ({ searchQuery }) => {
                   className="product-image"
                 />
                 <div className="action-buttons d-flex flex-column">
-                  <button
+                  {user ? (<button
                     className="icon-btn delete-btn"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -143,7 +143,10 @@ const Home = ({ searchQuery }) => {
                     }}
                   >
                     <i className="fa-solid fa-xmark" style={{ color: '#157347' }} />
-                  </button>
+                  </button>) : (
+                    <></>
+                  )}
+                  
 
                   <button
                     className="icon-btn share-btn"
@@ -155,12 +158,16 @@ const Home = ({ searchQuery }) => {
                     <FaEye className="fs-5" style={{ color: '#157347' }} />
                   </button>
 
-                  <button
+
+{user ? ( <button
                     className="icon-btn edit-btn"
                     onClick={(e) => handleEdit(product.id, e)}
                   >
                     <BsPencilSquare className="fs-5" style={{ color: '#157347' }} />
-                  </button>
+                  </button>) : (
+                    <></>
+                  )}
+                 
                 </div>
               </div>
 

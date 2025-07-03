@@ -11,6 +11,7 @@ import './addtocart.css';
 import { Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import done from '../../assets/img/done.jpeg';
+import emptyCartImg from "../../assets/img/Shop_Now.webp"
 
 const AddToCart = () => {
   const { cartItems } = useSelector((state) => state.productReducer);
@@ -50,6 +51,7 @@ const AddToCart = () => {
     <div className="cart-container">
       {cartItems.length === 0 ? (
         <div className="empty-cart">
+            <img src={emptyCartImg} alt="empty-cart" className="empty-cart-image" />
           <h2 className="cart-heading">Your Shopping Cart</h2>
           <p>Your cart is empty</p>
           <Button variant="primary" className="shop-now-btn" onClick={() => navigate('/')}>

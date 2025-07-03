@@ -55,7 +55,7 @@ const Sign_In = () => {
     <ToastContainer/>
     <div className="product-form-container">
       <div className="form-card" style={{ maxWidth: "700px" }}>
-        <div className='d-flex justify-content-between align-items-end'>
+        <div className='form-header d-flex justify-content-between '>
           <div className="form-title">
             <div className="title-icon">
               <FaUser size={16} />

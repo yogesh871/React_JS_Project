@@ -57,13 +57,15 @@ const Order = () => {
           <h3 className="section-title">Order Summary</h3>
           <div className="items-list">
             {orderItems.map((item) => (
-              <div key={item.id} className="item-card">
+              <div key={item.id} className="item-card d-flex justify-content-between">
+                <div className='d-flex gap-2'>
                 <div className="item-image-container">
                   <img src={item.image} alt={item.name} className="item-image" />
                 </div>
+                <div>
                 <div className="item-details">
                   <h4 className="item-name">{item.name}</h4>
-                  <div className="item-meta">
+                  <div className="item-meta ">
                     <div className="item-qty">Qty: {item.quantity}</div>
                     <div className="item-price">₹{item.price.toLocaleString('en-IN')} each</div>
                   </div>
@@ -71,6 +73,9 @@ const Order = () => {
                 <div className="item-total">
                   ₹{(item.quantity * item.price).toLocaleString('en-IN')}
                 </div>
+                </div>
+                </div>
+                
                 <div className="item-status delivered">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>

@@ -165,6 +165,18 @@ span {
     flex-direction: column;
   }
 }
+@media (max-width: 576px) {
+  .logo-search {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+  }
+  .search-input {
+    width: 100%;
+  }
+ 
+  
+}
 
 
 
@@ -184,3 +196,4 @@ span {
     align-items: center;
   }
 }
+

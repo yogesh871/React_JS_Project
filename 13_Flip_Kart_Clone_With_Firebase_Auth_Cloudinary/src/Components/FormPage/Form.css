@@ -127,3 +127,16 @@
   border: none;
   color: #dc3545;
 }
+.form-header{
+ 
+  align-items: flex-end ;
+}
+
+@media (max-width: 576px) {
+
+  .form-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+  }
+}
