@@ -1,32 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { auth, db } from '../../Firebase';
+import { FiCalendar, FiDollarSign, FiPackage, FiTruck } from 'react-icons/fi';
 import './Order.css';
 
 const Order = () => {
   const navigate = useNavigate();
-  const [orderItems, setOrderItems] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedOrder = localStorage.getItem('recentOrder');
-    if (savedOrder) {
-      setOrderItems(JSON.parse(savedOrder));
-    }
-  }, []);
+    const fetchOrders = async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        navigate('/Sign_In');
+        return;
+      }
 
+      const q = query(collection(db, 'orders'), where('uid', '==', user.uid));
+      const querySnapshot = await getDocs(q);
 
-  if (orderItems.length === 0) {
+      const fetchedOrders = [];
+      querySnapshot.forEach((doc) => {
+        fetchedOrders.push({ id: doc.id, ...doc.data() });
+      });
+
+      fetchedOrders.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
+      setOrders(fetchedOrders);
+      setLoading(false);
+    };
+
+    fetchOrders();
+  }, [navigate]);
+
+  if (loading) return <div className="loading">Loading</div>;
+
+  if (orders.length === 0) {
     return (
       <div className="order-empty">
         <div className="empty-card">
-          <div className="empty-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"/>
-            </svg>
-          </div>
+          <div className="empty-icon">📭</div>
           <h3>No Orders Found</h3>
-          <p className="empty-text">You haven't placed any orders yet</p>
-          <button
-            onClick={() => navigate('/')}
+          <p className="empty-text">
+            You haven't placed any orders yet. Start shopping to see your orders here!
+          </p>
+          <button 
+            onClick={() => navigate('/')} 
             className="continue-shopping-btn"
           >
             Continue Shopping
@@ -38,56 +58,66 @@ const Order = () => {
 
   return (
     <div className="order-page">
-      <div className="order-card">
-        <div className="order-header">
-          <div className="header-content">
-            <h2>Your Order</h2>
-            <div className="order-meta">
-              <div className="order-id">
-                <span>Order ID:</span> #{Math.floor(Math.random() * 1000000)}
+      <div className="order-list">
+        {orders.map((order) => (
+          <div key={order.id} className="order-card">
+            <div className="order-header">
+              <h2>
+                {/* <FiPackage style={{ marginRight: '10px' }} /> */}
+                Order #{order.orderId}
+              </h2>
+              <div className="order-meta">
+                <div>
+                  <FiCalendar />
+                  <span>Date:</span> 
+                  {new Date(order.createdAt.seconds * 1000).toLocaleDateString()}
+                </div>
+                <div>
+                  <FiDollarSign />
+                  <span>Total:</span> 
+                  ₹{order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)}
+                </div>
+                <div>
+                  <FiTruck />
+                  <span>Status:</span> 
+                  <span style={{ color: 'var(--success)' }}>Delivered</span>
+                </div>
               </div>
-              <div className="order-date">
-                <span>Date:</span> {new Date().toLocaleDateString('en-IN')}
+            </div>
+            
+            <div className="order-items">
+              <h3 className="section-title">Order Items</h3>
+              <div className="items-list">
+                {order.items.map((item, i) => (
+                  <div key={i} className="item-card align-items-center justify-content-between">
+                    <div className='d-flex gap-3 align-items-center '>
+
+                    <img src={item.image} alt={item.name} className="item-image" />
+                    <div className="item-details">
+                      <h4 className="item-name">{item.name}</h4>
+                      <div className="item-meta  d-flex">
+                        <div>
+                          <span>Qty:</span> {item.quantity}
+                        </div>
+                        <div>
+                          <span>Price:</span> ₹{item.price}
+                        </div>
+                        <div>
+                          <span>Size:</span> {item.size || 'One Size'}
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div className="item-total">
+                      ₹{(item.quantity * item.price).toFixed(2)}
+                    </div>
+                    <div className="item-status delivered">Delivered</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="order-items">
-          <h3 className="section-title">Order Summary</h3>
-          <div className="items-list">
-            {orderItems.map((item) => (
-              <div key={item.id} className="item-card d-flex justify-content-between">
-                <div className='d-flex gap-2'>
-                <div className="item-image-container">
-                  <img src={item.image} alt={item.name} className="item-image" />
-                </div>
-                <div>
-                <div className="item-details">
-                  <h4 className="item-name">{item.name}</h4>
-                  <div className="item-meta ">
-                    <div className="item-qty">Qty: {item.quantity}</div>
-                    <div className="item-price">₹{item.price.toLocaleString('en-IN')} each</div>
-                  </div>
-                </div>
-                <div className="item-total">
-                  ₹{(item.quantity * item.price).toLocaleString('en-IN')}
-                </div>
-                </div>
-                </div>
-                
-                <div className="item-status delivered">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                  </svg>
-                  Delivered
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        ))}
       </div>
     </div>
   );

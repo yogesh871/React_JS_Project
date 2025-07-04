@@ -11,7 +11,9 @@ import './addtocart.css';
 import { Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import done from '../../assets/img/done.jpeg';
-import emptyCartImg from "../../assets/img/Shop_Now.webp"
+import emptyCartImg from "../../assets/img/Shop_Now.webp";
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { db } from "../../Firebase";
 
 const AddToCart = () => {
   const { cartItems } = useSelector((state) => state.productReducer);
@@ -33,10 +35,21 @@ const AddToCart = () => {
     0
   );
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (currentUser?.uid) {
       const orderItems = [...cartItems];
-      localStorage.setItem('recentOrder', JSON.stringify(orderItems));
+      const orderId = `order-${Date.now()}`;
+      const orderRef = doc(db, 'orders', orderId);
+
+      await setDoc(orderRef, {
+        uid: currentUser.uid,
+        orderId,
+        items: orderItems,
+        total: (totalAmount * 0.9).toFixed(2),
+        discount: (totalAmount * 0.1).toFixed(2),
+        createdAt: Timestamp.now()
+      });
+
       dispatch(clearCart(currentUser.uid));
       setShowModal(true);
     }
@@ -44,14 +57,14 @@ const AddToCart = () => {
 
   const handleDone = () => {
     setShowModal(false);
-    navigate('/order');
+    navigate('/');
   };
 
   return (
     <div className="cart-container">
       {cartItems.length === 0 ? (
         <div className="empty-cart">
-            <img src={emptyCartImg} alt="empty-cart" className="empty-cart-image" />
+          <img src={emptyCartImg} alt="empty-cart" className="empty-cart-image" />
           <h2 className="cart-heading">Your Shopping Cart</h2>
           <p>Your cart is empty</p>
           <Button variant="primary" className="shop-now-btn" onClick={() => navigate('/')}>
@@ -65,7 +78,6 @@ const AddToCart = () => {
               <div key={product.id} className="cart-card">
                 <div className="cart-image-container">
                   <img src={product.image} alt={product.name} className="cart-image" />
-                  <div className="quick-view">Quick View</div>
                 </div>
 
                 <div className="cart-details">
@@ -78,9 +90,7 @@ const AddToCart = () => {
                   <div className="quantity-controls">
                     <Button
                       variant="outline-success"
-                      onClick={() =>
-                        currentUser && dispatch(decreaseQtyFirebase(currentUser.uid, product))
-                      }
+                      onClick={() => dispatch(decreaseQtyFirebase(currentUser.uid, product))}
                       className="qty-btn"
                     >
                       −
@@ -88,9 +98,7 @@ const AddToCart = () => {
                     <span className="qty-value">{product.quantity}</span>
                     <Button
                       variant="outline-success"
-                      onClick={() =>
-                        currentUser && dispatch(increaseQtyFirebase(currentUser.uid, product))
-                      }
+                      onClick={() => dispatch(increaseQtyFirebase(currentUser.uid, product))}
                       className="qty-btn"
                     >
                       +
@@ -102,9 +110,7 @@ const AddToCart = () => {
                   <button className="save-btn">SAVE FOR LATER</button>
                   <button
                     className="remove-btn"
-                    onClick={() =>
-                      currentUser && dispatch(removeFromCart(currentUser.uid, product.id))
-                    }
+                    onClick={() => dispatch(removeFromCart(currentUser.uid, product.id))}
                   >
                     REMOVE
                   </button>
@@ -116,14 +122,12 @@ const AddToCart = () => {
           <div className="cart-summary">
             <div className="summary-header"><h5>PRICE DETAILS</h5></div>
             <div className="summary-body">
-              <div className="summary-items">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="summary-row">
-                    <span>{item.name} x {item.quantity}</span>
-                    <span>₹{item.quantity * Number(item.price)}</span>
-                  </div>
-                ))}
-              </div>
+              {cartItems.map((item) => (
+                <div key={item.id} className="summary-row">
+                  <span>{item.name} x {item.quantity}</span>
+                  <span>₹{item.quantity * Number(item.price)}</span>
+                </div>
+              ))}
               <div className="summary-row discount-row">
                 <span>Discount</span>
                 <span className="discount">-₹{(totalAmount * 0.1).toFixed(2)}</span>
@@ -145,7 +149,6 @@ const AddToCart = () => {
               PLACE ORDER
             </Button>
           </div>
-          
         </>
       )}
 
