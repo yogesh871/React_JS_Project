@@ -72,7 +72,7 @@ const ProductDetails = () => {
       dispatch(addToCart(product));
       showToast();
     } else {
-      navigate('/Sign_Up');
+      navigate('/Sign_In');
     }
   };
 

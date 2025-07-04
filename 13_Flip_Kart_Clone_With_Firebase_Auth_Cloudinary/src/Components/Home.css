@@ -168,7 +168,6 @@
   box-shadow: 0 0 0 2px rgba(21, 115, 71, 0.3);
 }
 
-/* 576px and below — ✅ updated */
 @media (max-width: 576px) {
   .horizontal-scroll {
     justify-content: center;
@@ -222,7 +221,6 @@
   }
 }
 
-/* Tablet: 577px to 992px */
 @media (min-width: 577px) and (max-width: 992px) {
   .horizontal-scroll {
     justify-content: center;
@@ -250,7 +248,6 @@
   }
 }
 
-/* Desktop: 993px and up */
 @media (min-width: 993px) {
   .horizontal-scroll {
     justify-content: start;
@@ -277,3 +274,5 @@
     font-size: 16px;
   }
 }
+
+

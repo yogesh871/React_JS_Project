@@ -1,3 +1,4 @@
+/* Header.css */
 :root {
   --bs-dark-rgb: #FFF;
   --bs-bg-opacity: 0;
@@ -24,7 +25,7 @@ header {
 .header-top {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
@@ -92,16 +93,16 @@ header {
   --bs-dropdown-bg: #ffffff;
 }
 
-span {
-  position: 'absolute';
-  top: '-5px';
-  right: "-10px";
-  background-color: '#157347';
-  color: 'white';
-  font-size: '12px';
-  padding: '2px 6px';
-  border-radius: '50%';
-  font-weight: 'bold';
+.cart-count-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #157347;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
 }
 
 .dropdown-item {
@@ -142,95 +143,173 @@ span {
   color: #333;
 }
 
-.nav-link{
- display: flex !important;
+.nav-link {
+  display: flex !important;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  gap: 10px;;
+  gap: 10px;
 }
 
-@media screen and (max-width: 993px) {
+@media screen and (max-width: 1300px) {
+  .header-top{
+    align-items: center;
+    justify-content: center !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
   .menu-toggle {
-    display: inline-block;
+    display: block;
+  }
+
+  .menu-option{
+    flex-direction: column;
+  }
+
+  .header-actions {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header-actions.show-mobile-menu {
+    display: flex;
   }
 
   .search-input {
-    width: 95%;
+    width: 100%;
+    font-size: 13px;
   }
 
   .header-top {
-    flex-wrap: nowrap !important;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center !important;
+    /* flex-direction: column; */
+    align-items: flex-start ;
   }
 
   .logo-search {
     width: 100%;
+    /* flex-direction: column; */
     gap: 10px;
   }
 
   .navbar-nav {
-    align-items: center;
+    flex-direction: column !important;
+    width: 100%;
+    gap: 10px;
   }
 
-  .search-bar {
+  .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    margin-top: 5px;
+    box-shadow: none;
+    border: 1px solid #ddd;
     width: 100%;
   }
 
-  .search-input {
-    font-size: 13px;
+  .dropdown-menu .dropdown-item {
+    width: 100%;
+    padding: 10px;
   }
 
-  .header-actions {
-    margin: 0 auto;
-    justify-content: space-center;
-    gap: 20px;
+  .dropdown {
+    width: 100%;
   }
 
-  .seller {
-    display: none !important;
-  }
-
-  .fs-5,
-  .fs-4 {
-    font-size: 1rem !important;
-  }
-}
-
-@media (max-width: 830px) {
-  .header-top {
-    display: flex;
-    flex-direction: column;
+  .account-dropdown-toggle {
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 576px) {
-  .logo-search {
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .search-input {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .search-input {
-    font-size: 12px;
-  }
-
   .fs-5,
   .fs-4 {
     font-size: 0.9rem !important;
   }
 
+  .logo{
+    width: 100%;
+  }
+  .search-bar{
+    width: 100%;
+  }
+  .logo-search {
+    width: 100%;
+     align-items: strat !important;
+    flex-direction: column;
+    gap: 10px;}
+
   .header-actions {
+text-align: start !important;
     gap: 15px;
     align-items: center;
+  }
+}
+
+.header-actions.show-mobile-menu {
+  margin: 0px auto 0px 0px;
+  width: 80%;
+}
+
+
+.menu-toggle {
+  width: 30px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+  display: none;
+  z-index: 2000; 
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--dark-gray);
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  transition: all 0.4s ease;
+}
+
+.menu-toggle span:nth-child(1) {
+  top: 0;
+}
+.menu-toggle span:nth-child(2) {
+  top: 9px;
+}
+.menu-toggle span:nth-child(3) {
+  top: 18px;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 9px;
+}
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 9px;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .header-actions {
+    transition: max-height 0.4s ease;
+  }
+
+  .header-actions.show-mobile-menu {
+    max-height: 1000px;
   }
 }
