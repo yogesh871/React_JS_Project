@@ -108,7 +108,7 @@ const Sign_In = () => {
           </Form.Group>
 
           <Button 
-            className="submit-btn w-100 py-2 mb-3" 
+            className="submit-btn w-100 py-2 " 
             variant="primary" 
             type="submit"
             disabled={isSubmitting}
@@ -117,7 +117,7 @@ const Sign_In = () => {
             <span className="btn-icon ms-2"><FaArrowRight /></span>
           </Button>
 
-          <div className="divider mb-3">
+          <div className="divider ">
             <span className="text-muted small">OR</span>
           </div>
 

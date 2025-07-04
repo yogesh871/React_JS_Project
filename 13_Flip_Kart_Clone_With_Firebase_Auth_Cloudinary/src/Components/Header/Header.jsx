@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../../services/Actions/authAction';
 
 import { CgProfile } from 'react-icons/cg';
-import { BsCart3, BsBox2 } from 'react-icons/bs';
+import { BsCart3, BsBox2, BsPersonCircle } from 'react-icons/bs';
 import { IoSearchOutline, IoCardOutline } from 'react-icons/io5';
 import { LuDiamond } from 'react-icons/lu';
 import { CiHeart } from 'react-icons/ci';
@@ -34,6 +34,22 @@ const Header = ({ setSearchQuery }) => {
     // if (!user) navigate("/sign-in");
   }, [user]);
 
+  const getAvatarContent = () => {
+    if (user?.email) {
+      return (
+        <div className="avatar-circle">
+          {user.email.charAt(0).toUpperCase()}
+        </div>
+      );
+    }
+    return (
+      <BsPersonCircle
+        size={20}
+        className="account-icon"
+     />
+ );
+ };
+
   return (
     <>
       <ToastContainer />
@@ -60,14 +76,19 @@ const Header = ({ setSearchQuery }) => {
               <Navbar expand="md" variant="light">
                 <Nav className='d-flex flex-row align-items-start justify-content-center flex-wrap'>
                   <div className='d-flex align-items-center'>
-                    <CgProfile className='fs-5' />
-                    <NavDropdown title={user ? user.email : 'Account'} menuVariant="dark">
+                    {/* <CgProfile className='fs-5' /> */}
+                    <NavDropdown title={
+                      <div className="d-flex align-items-center gap-1 account-dropdown-toggle">
+                      {getAvatarContent()}
+                       {user ? user.email : <></>}
+                      </div>
+                    }>
                       {!user ? (
                         <>
                           <NavDropdown.Item>
                             <div className='d-flex justify-content-between'>
                               <span className='me-3'>New Customer?</span>
-                              <Link to="/Sign_In" className='text-light text-decoration-none'>Sign Up</Link>
+                              <Link to="/Sign_In" className='text-black text-decoration-none'>Sign Up</Link>
                             </div>
                           </NavDropdown.Item>
                         </>
@@ -75,7 +96,7 @@ const Header = ({ setSearchQuery }) => {
                         <>
                           <NavDropdown.Item><CgProfile /> My Profile</NavDropdown.Item>
                           <NavDropdown.Item><LuDiamond /> Flipkart Plus Zone</NavDropdown.Item>
-                          <NavDropdown.Item><BsBox2 /><Link to="/order" className='text-light text-decoration-none ms-2'>Orders</Link></NavDropdown.Item>
+                          <NavDropdown.Item><BsBox2 /><Link to="/order" className='text-black text-decoration-none ms-2'>Orders</Link></NavDropdown.Item>
                           <NavDropdown.Item><CiHeart /> Wishlist</NavDropdown.Item>
                           <NavDropdown.Item><PiGiftLight /> Rewards</NavDropdown.Item>
                           <NavDropdown.Item><IoCardOutline /> Gift Cards</NavDropdown.Item>
