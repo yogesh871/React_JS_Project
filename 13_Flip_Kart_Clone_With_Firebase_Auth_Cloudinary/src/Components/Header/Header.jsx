@@ -60,7 +60,7 @@ const Header = ({ setSearchQuery }) => {
             </div>
 
             <button className="menu-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <FaBars size={22} />
+              <FaBars size={22} /> Account
             </button>
 
             <div className={`header-actions ${isMobileMenuOpen ? 'show-mobile-menu' : ''}`}>
@@ -71,7 +71,7 @@ const Header = ({ setSearchQuery }) => {
                       title={
                         <div className="d-flex align-items-center gap-1 account-dropdown-toggle">
                           {getAvatarContent()}
-                          {user ? user.email : null}
+                          {user ? user.email : "Account"}
                         </div>
                       }
                       className="account-dropdown"
