@@ -51,7 +51,7 @@ export const signUpAsync = ({ email, password, fullName }) => async (dispatch) =
         photoURL: response.user.photoURL || "https://media.istockphoto.com/id/1300845620/vector/user-icon.jpg",
       };
       await setDoc(doc(db, "users", user.id), user);
-      await signOut(auth); // Force logout after signup
+      await signOut(auth); 
       dispatch(signUPSuc());
     }
   } catch (err) {

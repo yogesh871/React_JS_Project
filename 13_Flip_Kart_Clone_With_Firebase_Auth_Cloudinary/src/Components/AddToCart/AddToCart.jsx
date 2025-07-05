@@ -35,12 +35,33 @@ const AddToCart = () => {
     0
   );
 
+  // const handlePlaceOrder = async () => {
+  //   if (currentUser?.id) {
+  //     const orderItems = [...cartItems];
+  //     const orderId = `order-${Date.now()}`;
+  //     const orderRef = doc(db, 'orders', orderId);
+
+  //     await setDoc(orderRef, {
+  //       uid: currentUser.id,
+  //       orderId,
+  //       items: orderItems,
+  //       total: (totalAmount * 0.9).toFixed(2),
+  //       discount: (totalAmount * 0.1).toFixed(2),
+  //       createdAt: Timestamp.now(),
+  //     });
+
+  //     dispatch(clearCart(currentUser.id));
+  //     setShowModal(true);
+  //   }
+  // };
+
   const handlePlaceOrder = async () => {
     if (currentUser?.id) {
       const orderItems = [...cartItems];
       const orderId = `order-${Date.now()}`;
-      const orderRef = doc(db, 'orders', orderId);
-
+  
+      const orderRef = doc(db, 'users', currentUser.id, 'orders', orderId);
+  
       await setDoc(orderRef, {
         uid: currentUser.id,
         orderId,
@@ -49,11 +70,12 @@ const AddToCart = () => {
         discount: (totalAmount * 0.1).toFixed(2),
         createdAt: Timestamp.now(),
       });
-
+  
       dispatch(clearCart(currentUser.id));
       setShowModal(true);
     }
   };
+  
 
   const handleDone = () => {
     setShowModal(false);

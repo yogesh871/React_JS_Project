@@ -17,20 +17,19 @@ const Order = () => {
         navigate('/Sign_In');
         return;
       }
-
-      const q = query(collection(db, 'orders'), where('uid', '==', user.uid));
+    
+      const q = collection(db, 'users', user.uid, 'orders'); 
       const querySnapshot = await getDocs(q);
-
+    
       const fetchedOrders = [];
       querySnapshot.forEach((doc) => {
         fetchedOrders.push({ id: doc.id, ...doc.data() });
       });
-
+    
       fetchedOrders.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
       setOrders(fetchedOrders);
       setLoading(false);
     };
-
     fetchOrders();
   }, [navigate]);
 
