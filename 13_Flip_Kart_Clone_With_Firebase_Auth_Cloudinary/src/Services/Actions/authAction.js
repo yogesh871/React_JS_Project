@@ -27,7 +27,7 @@ export const signUpAsync = ({ email, password }) => async (dispatch) => {
 export const googleSignInAsync = () => async (dispatch) => {
   const provider = new GoogleAuthProvider();
   try {
-    const res = await signInWithPopup(auth, provider);
+    const res = await signInWithPopup(auth, provider) ;
     dispatch(signINSuc(res.user));
   } catch (err) {
     dispatch(setError(err.message));
