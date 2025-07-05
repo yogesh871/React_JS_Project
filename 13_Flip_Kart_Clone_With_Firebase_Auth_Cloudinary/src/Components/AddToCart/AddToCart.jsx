@@ -5,7 +5,7 @@ import {
   removeFromCart,
   increaseQtyFirebase,
   decreaseQtyFirebase,
-  clearCart
+  clearCart,
 } from '../../Services/Actions/productAction';
 import './addtocart.css';
 import { Button, Modal } from 'react-bootstrap';
@@ -23,11 +23,11 @@ const AddToCart = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (!currentUser?.uid) {
+    if (!currentUser?.id) {
       navigate('/Sign_In');
       return;
     }
-    dispatch(getCartItems(currentUser.uid));
+    dispatch(getCartItems(currentUser.id));
   }, [dispatch, currentUser, navigate]);
 
   const totalAmount = cartItems.reduce(
@@ -36,21 +36,21 @@ const AddToCart = () => {
   );
 
   const handlePlaceOrder = async () => {
-    if (currentUser?.uid) {
+    if (currentUser?.id) {
       const orderItems = [...cartItems];
       const orderId = `order-${Date.now()}`;
       const orderRef = doc(db, 'orders', orderId);
 
       await setDoc(orderRef, {
-        uid: currentUser.uid,
+        uid: currentUser.id,
         orderId,
         items: orderItems,
         total: (totalAmount * 0.9).toFixed(2),
         discount: (totalAmount * 0.1).toFixed(2),
-        createdAt: Timestamp.now()
+        createdAt: Timestamp.now(),
       });
 
-      dispatch(clearCart(currentUser.uid));
+      dispatch(clearCart(currentUser.id));
       setShowModal(true);
     }
   };
@@ -90,7 +90,7 @@ const AddToCart = () => {
                   <div className="quantity-controls">
                     <Button
                       variant="outline-success"
-                      onClick={() => dispatch(decreaseQtyFirebase(currentUser.uid, product))}
+                      onClick={() => dispatch(decreaseQtyFirebase(currentUser.id, product))}
                       className="qty-btn"
                     >
                       −
@@ -98,7 +98,7 @@ const AddToCart = () => {
                     <span className="qty-value">{product.quantity}</span>
                     <Button
                       variant="outline-success"
-                      onClick={() => dispatch(increaseQtyFirebase(currentUser.uid, product))}
+                      onClick={() => dispatch(increaseQtyFirebase(currentUser.id, product))}
                       className="qty-btn"
                     >
                       +
@@ -110,7 +110,7 @@ const AddToCart = () => {
                   <button className="save-btn">SAVE FOR LATER</button>
                   <button
                     className="remove-btn"
-                    onClick={() => dispatch(removeFromCart(currentUser.uid, product.id))}
+                    onClick={() => dispatch(removeFromCart(currentUser.id, product.id))}
                   >
                     REMOVE
                   </button>

@@ -95,12 +95,12 @@ header {
 
 .cart-count-badge {
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: -14px;
+  right: -14px;
   background-color: #157347;
   color: white;
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 50%;
   font-weight: bold;
 }

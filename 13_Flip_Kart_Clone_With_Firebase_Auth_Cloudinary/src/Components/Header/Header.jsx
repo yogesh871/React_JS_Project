@@ -18,18 +18,24 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Container } from 'react-bootstrap';
 import './Header.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { getCartItems } from '../../Services/Actions/productAction';
 
 const Header = ({ setSearchQuery }) => {
   const { cartItems } = useSelector((state) => state.productReducer);
   const { user } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (user?.id) {
+      dispatch(getCartItems(user.id)); // ✅ Load cart from Firestore using user.id
+    }
+  }, [user, dispatch]);
 
   const handleLogOut = () => {
     dispatch(logoutUser());
-    toast.error("User Is LogOut!");
+    toast.error("User Is Logged Out!");
   };
 
   const getAvatarContent = () => {
@@ -44,7 +50,7 @@ const Header = ({ setSearchQuery }) => {
       <ToastContainer />
       <header className="header-container shadow-sm bg-light">
         <Container>
-          <div className="header-top d-flex  ">
+          <div className="header-top d-flex">
             <div className="logo-search">
               <Link to="/" className="logo pe-3">
                 <img src={FlipCardlogo} alt="Flip_Card" />
@@ -65,7 +71,7 @@ const Header = ({ setSearchQuery }) => {
 
             <div className={`header-actions ${isMobileMenuOpen ? 'show-mobile-menu' : ''}`}>
               <Navbar expand="md" variant="light">
-                <Nav className=" menu-option d-flex  align-items-start justify-content-center flex-wrap">
+                <Nav className="menu-option d-flex align-items-start justify-content-center flex-wrap">
                   <div className="d-flex align-items-center">
                     <NavDropdown
                       title={
@@ -106,7 +112,7 @@ const Header = ({ setSearchQuery }) => {
                     {cartItems.length > 0 && <span className="cart-count-badge">{cartItems.length}</span>}
                   </Link>
 
-                  {user ? (
+                  {user && user.role == "admin" ? (
                     <Link to="/Add_Product" className="d-flex align-items-center text-dark text-decoration-none">
                       <FaSquarePlus className="fs-4" />
                       <span className="ps-1">Add Product</span>
