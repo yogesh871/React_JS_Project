@@ -5,6 +5,7 @@ import { logoutUser } from '../../services/Actions/authAction';
 
 import { CgProfile } from 'react-icons/cg';
 import { BsCart3, BsBox2, BsPersonCircle } from 'react-icons/bs';
+import { MdOutlineStorefront } from 'react-icons/md';
 import { IoSearchOutline, IoCardOutline } from 'react-icons/io5';
 import { LuDiamond } from 'react-icons/lu';
 import { CiHeart } from 'react-icons/ci';
@@ -118,14 +119,20 @@ const Header = ({ setSearchQuery }) => {
                       <span className="ps-1">Add Product</span>
                     </Link>
                   ) : (
-                    <div
-                      className="d-flex align-items-center text-dark text-decoration-none"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => navigate('/Sign_In')}
-                    >
-                      <CgProfile className="fs-4" />
-                      <span className="ps-1">Login</span>
-                    </div>
+
+                    <Link to="/" className="text-dark d-flex align-items-center seller-link text-decoration-none">
+            <MdOutlineStorefront className="me-1 fs-5" />
+            <span className="d-none d-md-inline">Become a Seller</span>
+           </Link>
+                    
+                    // <div
+                    //   className="d-flex align-items-center text-dark text-decoration-none"
+                    //   style={{ cursor: 'pointer' }}
+                    //   onClick={() => navigate('/Sign_In')}
+                    // >
+                    //   <CgProfile className="fs-4" />
+                    //   <span className="ps-1">Login</span>
+                    // </div>
                   )}
                 </Nav>
               </Navbar>

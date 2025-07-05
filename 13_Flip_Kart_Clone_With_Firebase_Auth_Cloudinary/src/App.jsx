@@ -32,9 +32,10 @@ function App() {
       <Header setSearchQuery={setSearchQuery} />
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} />} />
-        {user ? ( <Route path="/Add_Product" element={<AddProduct />} />) :  ( <Route path="/Add_Product" element={<Sign_In />} />)}
+        {user && user.role === "admin" ? ( <Route path="/Add_Product" element={<AddProduct />} />) :  ( <Route path="/Add_Product" element={ <Home searchQuery={searchQuery} />} />)}
+        {user && user.role === "admin" ? (  <Route path="/editproduct/:id" element={<EditProduct />}/>) :  ( <Route path="//editproduct/:id" element={<Home searchQuery={searchQuery} />} />)}
        
-        <Route path="/editproduct/:id" element={<EditProduct />} />
+   
         {user ? ( <Route path="/Add_To_Cart" element={<AddToCart />}  />) :  ( <Route path="/Add_To_Cart" element={<Sign_In />} />)}
        
         <Route path="/product/:id" element={<ProductDetails />} />
