@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProductAsync, updateProductAsync } from "../../Services/Actions/productAction";
+// import { getProductAsync, updateProductAsync } from "../../Services/Actions/productAction";
 import "../AddProduct/AddProduct.css";
 import { BsPencilSquare } from 'react-icons/bs';
 import { UploadImage } from "../../Services/Cloudinary";
 import { ToastContainer, toast } from "react-toastify";
+import { getProductAsync, updateProductAsync } from "../../Services/Actions/productAction";
+
 
 
 const EditProduct = () => {

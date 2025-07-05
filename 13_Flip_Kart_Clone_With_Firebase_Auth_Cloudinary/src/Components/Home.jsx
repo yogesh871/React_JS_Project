@@ -135,7 +135,7 @@ const Home = ({ searchQuery }) => {
                   className="product-image"
                 />
                 <div className="action-buttons d-flex flex-column">
-                  {user ? (<button
+                  {user  && user.role == "admin"? (<button
                     className="icon-btn delete-btn"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -159,7 +159,7 @@ const Home = ({ searchQuery }) => {
                   </button>
 
 
-{user ? ( <button
+{user && user.role == "admin"? ( <button
                     className="icon-btn edit-btn"
                     onClick={(e) => handleEdit(product.id, e)}
                   >
