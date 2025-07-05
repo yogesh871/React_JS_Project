@@ -106,7 +106,7 @@ const Header = ({ setSearchQuery }) => {
                     {cartItems.length > 0 && <span className="cart-count-badge">{cartItems.length}</span>}
                   </Link>
 
-                  {user ? (
+                  {user && user.role == "admin"  ? (
                     <Link to="/Add_Product" className="d-flex align-items-center text-dark text-decoration-none">
                       <FaSquarePlus className="fs-4" />
                       <span className="ps-1">Add Product</span>
